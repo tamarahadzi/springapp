@@ -1,0 +1,98 @@
+<div class="background">
+  <form class="w-25 pt-5 pl-5" [formGroup]="loginForm">
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="emailAddress" class="text-white">Email address</label>
+          <input type="email" class="form-control" id="emailAddress" placeholder="Email address" formControlName="email">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="password" class="text-white">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <button type="button" class="form-control btn btn-primary mt-3" (click)="login()">Log In</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group text-center text-white mt-2">
+          Don't have account? <button type="button" class="btn btn-secondary btn-sm" (click)="showSignUpModal(signUpModal)">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #signUpModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sign Up</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="signUpForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="firstNameModal">First Name</label>
+            <input type="text" class="form-control" id="firstNameModal" placeholder="First Name" formControlName="firstName">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="lastNameModal">Last Name</label>
+            <input type="text" class="form-control" id="lastNameModal" placeholder="Last Name" formControlName="lastName">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="emailAddressModal">Email address</label>
+            <input type="email" class="form-control" id="emailAddressModal" placeholder="Email address" formControlName="email">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="passwordModal">Password</label>
+            <input type="password" class="form-control" id="passwordModal" placeholder="Password" formControlName="password">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="phoneNumberModal">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumberModal" placeholder="Phone Number" formControlName="phoneNumber">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="signUp()">Save</button>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
