@@ -1,6 +1,7 @@
 package com.example.springapp.web.rest;
 
 import com.example.springapp.model.User;
+import com.example.springapp.model.UserDTO;
 import com.example.springapp.repository.UserRepository;
 import com.example.springapp.security.AuthoritiesConstants;
 import com.example.springapp.service.UserService;
@@ -42,7 +43,7 @@ public class UserRestController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/user")
+/*    @PostMapping("/user")
     @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> createUser(@RequestParam("email") String email,
                                               @RequestParam("password") String password,
@@ -64,9 +65,46 @@ public class UserRestController {
             return ResponseEntity.badRequest().build();
         }
 
+    }*/
+
+    @PostMapping("/user")
+    @Secured({AuthoritiesConstants.ADMIN})
+    public ResponseEntity<Boolean> createUser(@RequestBody UserDTO userDTO,
+                                              Authentication authentication) {
+        try {
+            if (authentication.isAuthenticated()) {
+                if (userService.createUser(userDTO)) {
+                    return ResponseEntity.ok().body(true);
+                } else {
+                    return ResponseEntity.badRequest().build();
+                }
+            }
+            return ResponseEntity.badRequest().header("User is not authenticated").build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @PutMapping("/user")
+    public ResponseEntity<Boolean> updateUser(@RequestBody UserDTO userDTO,
+                                              Authentication authentication) {
+        try {
+            if (authentication.isAuthenticated()) {
+                if (userService.updateUser(userDTO)) {
+                    return ResponseEntity.ok().body(true);
+                } else {
+                    return ResponseEntity.badRequest().build();
+                }
+            }
+            return ResponseEntity.badRequest().header("User is not authenticated").build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+   /* @PutMapping("/user")
     public ResponseEntity<Boolean> updateUser(@RequestParam("id") Long id,
                                               @RequestParam("email") String email,
                                               @RequestParam("password") String password,
@@ -89,7 +127,7 @@ public class UserRestController {
         }
 
     }
-
+*/
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id,
                                         Authentication authentication) {

@@ -2,7 +2,9 @@ package com.example.springapp.service;
 
 import com.example.springapp.model.Role;
 import com.example.springapp.model.User;
+import com.example.springapp.model.UserDTO;
 import com.example.springapp.repository.UserRepository;
+import com.example.springapp.utils.TransformationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,29 +21,31 @@ public class UserService {
     @Autowired
     public RoleService roleService;
 
-    public boolean createUser(String email, String password, String firstName, String lastName, Long roleId, String phone) {
+    @Autowired
+    public TransformationUtils transformationUtils;
+
+    public boolean createUser(UserDTO userDTO) {
         try {
-            java.util.Date currentDate = new java.util.Date();
-            Role role = roleService.getById(roleId);
-            User newUser = new User(email, password, firstName, lastName, phone, new Date(currentDate.getTime()), role);
-            userRepository.save(newUser);
+            userRepository.save(transformationUtils.transformUserDTOtoUser(userDTO));
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean updateUser(Long id, String email, String password, String firstName, String lastName, String phone, Long roleId) {
+    public boolean updateUser(UserDTO userDTO) {
         try {
-            User user = userRepository.getOne(id);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setPhone(phone);
-            user.setRole(roleService.getById(roleId));
-            userRepository.save(user);
-            return true;
+            Optional<User> optionalUser = userRepository.findById(userDTO.getId());
+            if (optionalUser.isPresent()) {
+                String password;
+                if (userDTO.getPassword() != null) {
+                    password = optionalUser.get().getPassword();
+                }
+                userRepository.save(transformationUtils.transformUserDTOtoUser(userDTO));
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }
