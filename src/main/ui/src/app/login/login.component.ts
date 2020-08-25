@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe( res => {
-
+      console.log("loggedUser", res);
     });
   }
 
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     this.user.email = this.signUpForm.get('email').value;
     this.user.password = this.signUpForm.get('password').value;
     this.user.phone = this.signUpForm.get('phoneNumber').value;
-    this.user.roleId = 1;
+    this.user.roleId = 2;
     console.log("user", this.user);
     this.loginService.signUp(this.user).subscribe();
   }

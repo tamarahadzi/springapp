@@ -14,4 +14,10 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="roles" author="tm">
+        <loadData file="config/liquibase/roles.csv"
+                  separator=";"
+                  tableName="role"/>
+    </changeSet>
 </databaseChangeLog>
