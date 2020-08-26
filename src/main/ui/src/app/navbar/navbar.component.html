@@ -1,0 +1,16 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="navbar navbar-expand-lg bg-light">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Users</a>
+    <ng-template ngbNavContent>
+      <app-users></app-users>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Cars</a>
+    <ng-template ngbNavContent>
+      <app-cars></app-cars>
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

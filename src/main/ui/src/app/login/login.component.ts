@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {LoginService} from "./login.service";
 import {User} from "../shared/models/user.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   user: User;
 
   constructor(private fb: FormBuilder,
+              private router: Router,
               private modalService: NgbModal,
               private loginService: LoginService) { }
 
@@ -28,9 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe( res => {
+    /*this.loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe( res => {
       console.log("loggedUser", res);
-    });
+    });*/
+    this.router.navigate(['/navbar']);
   }
 
   showSignUpModal(modal) {

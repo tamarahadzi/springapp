@@ -8,11 +8,17 @@ import { LoginComponent } from './login/login.component';
 import {LoginService} from "./login/login.service";
 import {HttpClientModule} from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CarsComponent } from './navbar/cars/cars.component';
+import { UsersComponent } from './navbar/users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    CarsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
