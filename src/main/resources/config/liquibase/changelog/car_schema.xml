@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="car" author="tm">
+        <createTable tableName="car">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="air_condition" type="boolean"/>
+            <column name="doors" type="integer"/>
+            <column name="gearbox" type="varchar(255)"/>
+            <column name="seats" type="integer"/>
+            <column name="large_bag" type="integer"/>
+            <column name="small_bag" type="integer"/>
+            <column name="year" type="integer"/>
+            <column name="brand" type="varchar(255)"/>
+            <column name="model" type="varchar(255)"/>
+            <column name="price_per_day" type="real"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
