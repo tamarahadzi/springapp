@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col">
       <h3>Cars</h3>
@@ -6,7 +6,130 @@
   </div>
   <div class="row mt-3">
     <div class="col">
-      <button type="button" class="btn btn-primary">Add Car</button>
+      <button type="button" class="btn btn-primary" (click)="showSaveCarModal(saveCarModal)">Add Car</button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Model</th>
+          <th>Gearbox</th>
+          <th>Air condition</th>
+          <th>Year</th>
+          <th>Price per day</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let car of cars; index as i">
+          <td class="align-middle">{{car.brand}}</td>
+          <td class="align-middle">{{car.model}}</td>
+          <td class="align-middle">{{car.gearbox}}</td>
+          <td class="align-middle">{{car.airCondition}}</td>
+          <td class="align-middle">{{car.year}}</td>
+          <td class="align-middle">{{car.pricePerDay}}</td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="deleteCar(car.id)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<ng-template #saveCarModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add a new Car</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="carForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="brandModal">Brand</label>
+            <input type="text" class="form-control" id="brandModal" placeholder="Brand" formControlName="brand">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="modelModal">Model</label>
+            <input type="text" class="form-control" id="modelModal" placeholder="Model" formControlName="model">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="gearboxModal">Gearbox</label>
+            <select class="form-control" id="gearboxModal" formControlName="gearbox">
+              <option value="" disabled>Choose gearbox</option>
+              <option value="automatic">automatic</option>
+              <option value="manual">manual</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-check mt-4">
+            <input class="form-check-input" type="checkbox" value="" id="airConditionModal" formControlName="airCondition">
+            <label class="form-check-label" for="airConditionModal">
+              Air condition
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="yearModal">Year</label>
+            <input type="text" class="form-control" id="yearModal" placeholder="Year" formControlName="year">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="pricePerDayModal">Price per day</label>
+            <input type="text" class="form-control" id="pricePerDayModal" placeholder="Price per day" formControlName="pricePerDay">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="doorsModal">Number of doors</label>
+            <input type="text" class="form-control" id="doorsModal" placeholder="Number of doors" formControlName="doors">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="seatsModal">Number of seats</label>
+            <input type="text" class="form-control" id="seatsModal" placeholder="Number of seats" formControlName="seats">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="smallBagModal">Number of small bags</label>
+            <input type="text" class="form-control" id="smallBagModal" placeholder="Number of small bags" formControlName="smallBag">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="largeBagModal">Number of large bags</label>
+            <input type="text" class="form-control" id="largeBagModal" placeholder="Number of large bags" formControlName="largeBag">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="saveCar()">Save</button>
+  </div>
+</ng-template>

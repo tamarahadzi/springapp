@@ -130,6 +130,8 @@ public class Car {
         this.pricePerDay = pricePerDay;
     }
 
+    public Car() {}
+
     public Car(Long id, Boolean airCondition, Integer doors, String gearbox, Integer seats, Integer largeBag, Integer smallBag, Integer year, String brand, String model, Float pricePerDay) {
         this.id = id;
         this.airCondition = airCondition;

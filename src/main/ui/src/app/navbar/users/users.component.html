@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col">
       <h3>Users</h3>
@@ -6,7 +6,88 @@
   </div>
   <div class="row mt-3">
     <div class="col">
-      <button type="button" class="btn btn-primary">Add User</button>
+      <button type="button" class="btn btn-primary" (click)="showSaveUserModal(saveUserModal)">Add User</button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users; index as i">
+          <td class="align-middle">{{user.firstName}} {{user.lastName}}</td>
+          <td class="align-middle">{{user.email}}</td>
+          <td class="align-middle">{{user.phone}}</td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<ng-template #saveUserModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add a new User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="userForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="firstNameModal">First Name</label>
+            <input type="text" class="form-control" id="firstNameModal" placeholder="First Name" formControlName="firstName">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="lastNameModal">Last Name</label>
+            <input type="text" class="form-control" id="lastNameModal" placeholder="Last Name" formControlName="lastName">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="emailAddressModal">Email address</label>
+            <input type="email" class="form-control" id="emailAddressModal" placeholder="Email address" formControlName="email">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="passwordModal">Password</label>
+            <input type="password" class="form-control" id="passwordModal" placeholder="Password" formControlName="password">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="phoneNumberModal">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumberModal" placeholder="Phone Number" formControlName="phoneNumber">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="saveUser()">Save</button>
+  </div>
+</ng-template>

@@ -1,4 +1,4 @@
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="navbar navbar-expand-lg bg-light">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="navbar navbar-expand-lg bg-light nav-pills">
   <li [ngbNavItem]="1">
     <a ngbNavLink>Users</a>
     <ng-template ngbNavContent>
@@ -11,6 +11,7 @@
       <app-cars></app-cars>
     </ng-template>
   </li>
+  <li class="ml-auto mr-1"><a>Logged User Name</a><button class="btn btn-primary ml-3" (click)="logout()">Log out</button></li>
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>

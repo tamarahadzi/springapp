@@ -11,6 +11,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarsComponent } from './navbar/cars/cars.component';
 import { UsersComponent } from './navbar/users/users.component';
+import {UsersService} from "./navbar/users/users.service";
+import {CarsService} from "./navbar/cars/cars.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { UsersComponent } from './navbar/users/users.component';
     NgbModule
   ],
   providers: [
-    LoginService
+    LoginService,
+    UsersService,
+    CarsService
   ],
   bootstrap: [AppComponent]
 })
