@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       loggedUser.email = res.body.username;
       loggedUser.phone = res.body.phone;
       let role = new Role();
-      if(res.body.authorities[0].authority == "ROLE_ADMIN") {
+      if(res.body.authorities[0].authority == 'ROLE_ADMIN') {
         role.id = 1;
         role.name = "ADMIN";
       } else {

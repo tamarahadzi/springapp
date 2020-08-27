@@ -16,6 +16,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    if(this.loggedUser.role.name=='ADMIN') {
+      this.active = 1;
+    } else {
+      this.active = 3;
+    }
   }
 
   logout() {

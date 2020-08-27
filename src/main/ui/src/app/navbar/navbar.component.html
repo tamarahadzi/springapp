@@ -14,7 +14,7 @@
   <li [ngbNavItem]="3" *ngIf="loggedUser.role.name=='USER'">
     <a ngbNavLink>Reservation</a>
     <ng-template ngbNavContent>
-      <p>Reservation</p>
+      <app-reservation></app-reservation>
     </ng-template>
   </li>
   <li class="ml-auto mr-1"><a>{{loggedUser.firstName}} {{loggedUser.lastName}}</a><button class="btn btn-primary ml-3" (click)="logout()">Log out</button></li>
