@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    /*this.loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe( res => {
+    this.loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe( res => {
       console.log("loggedUser", res);
       this.router.navigate(['/navbar']);
-    });*/
+    });
     this.router.navigate(['/navbar']);
   }
 
