@@ -14,6 +14,10 @@ export class CarsService {
     return this.http.post<Car>(this.baseUrl + '/car', car, {observe: 'response'});
   }
 
+  updateCar(car: Car): Observable<HttpResponse<Car>> {
+    return this.http.put<Car>(this.baseUrl + '/car', car, {observe: 'response'});
+  }
+
   deleteCar(carId: number): Observable<HttpResponse<Car>> {
     return this.http.delete<Car>(this.baseUrl + '/car/' + carId, {observe: 'response'});
   }

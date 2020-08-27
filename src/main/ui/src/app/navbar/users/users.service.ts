@@ -15,6 +15,10 @@ export class UsersService {
     return this.http.post<User>(this.baseUrl + '/user', user, {observe: 'response'});
   }
 
+  updateUser(user: User): Observable<HttpResponse<User>> {
+    return this.http.put<User>(this.baseUrl + '/user', user, {observe: 'response'});
+  }
+
   deleteUser(userId: number): Observable<HttpResponse<User>> {
     return this.http.delete<User>(this.baseUrl + '/user/' + userId, {observe: 'response'});
   }

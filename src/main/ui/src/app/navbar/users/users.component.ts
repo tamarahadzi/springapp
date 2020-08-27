@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../../shared/models/user.model";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Role} from "../../shared/models/role.model";
 import {UsersService} from "./users.service";
 import {Car} from "../../shared/models/car.model";
@@ -14,9 +14,12 @@ import {Car} from "../../shared/models/car.model";
 export class UsersComponent implements OnInit {
 
   userForm: FormGroup;
+  modalReference: NgbModalRef;
   user: User;
   role: Role;
   users: User[];
+  userId: number;
+  saveOrUpdateUser: boolean;
 
   constructor(private fb: FormBuilder,
               private modalService: NgbModal,
@@ -28,24 +31,39 @@ export class UsersComponent implements OnInit {
 
   getAllUsers() {
     this.usersService.getAllUsers().subscribe(res => {
-      console.info("res", res.body);
+      console.info("allUsers", res.body);
       this.users = res.body;
     })
   }
 
-  showSaveUserModal(modal) {
-    this.userForm = this.fb.group({
-      firstName: [],
-      lastName: [],
-      email: [],
-      password: [],
-      phoneNumber: []
-    });
-    this.modalService.open(modal, { centered: true });
+  showSaveUserModal(saveOrUpdate, user, modal) {
+    this.saveOrUpdateUser = saveOrUpdate;
+    if(!saveOrUpdate) {
+      this.userForm = this.fb.group({
+        firstName: [],
+        lastName: [],
+        email: [],
+        password: [],
+        phoneNumber: []
+      });
+    } else {
+      this.userId = user.id;
+      this.userForm = this.fb.group({
+        firstName: [user.firstName],
+        lastName: [user.lastName],
+        email: [user.email],
+        password: [user.password],
+        phoneNumber: [user.phone]
+      });
+    }
+    this.modalReference = this.modalService.open(modal, { centered: true });
   }
 
   saveUser() {
     this.user = new User();
+    if(this.saveOrUpdateUser) {
+      this.user.id = this.userId;
+    }
     this.user.firstName = this.userForm.get('firstName').value;
     this.user.lastName = this.userForm.get('lastName').value;
     this.user.email = this.userForm.get('email').value;
@@ -55,16 +73,29 @@ export class UsersComponent implements OnInit {
     this.role.id = 1;
     this.role.name = "ADMIN";
     this.user.role = this.role;
-    console.log("user", this.user);
-    this.usersService.saveUser(this.user).subscribe( res => {
-      console.log("res", res);
-      this.getAllUsers();
-    });
+    console.log("this.user", this.user);
+    if(!this.saveOrUpdateUser) {
+      this.usersService.saveUser(this.user).subscribe(res => {
+        this.getAllUsers();
+        this.modalReference.close();
+      });
+    } else {
+      this.usersService.updateUser(this.user).subscribe(res => {
+        this.getAllUsers();
+        this.modalReference.close();
+      });
+    }
   }
 
-  deleteUser(userId: number) {
-    this.usersService.deleteUser(userId).subscribe(res => {
+  showDeleteUserModal(userId, modal) {
+    this.userId = userId;
+    this.modalReference = this.modalService.open(modal, {centered: true});
+  }
+
+  deleteUser() {
+    this.usersService.deleteUser(this.userId).subscribe(res => {
       this.getAllUsers();
+      this.modalReference.close();
     })
   }
 

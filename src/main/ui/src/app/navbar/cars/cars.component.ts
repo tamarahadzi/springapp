@@ -16,6 +16,8 @@ export class CarsComponent implements OnInit {
   modalReference: NgbModalRef;
   car: Car;
   cars: Car[];
+  carId: number;
+  saveOrUpdateCar: boolean;
 
   constructor(private fb: FormBuilder,
               private modalService: NgbModal,
@@ -27,29 +29,49 @@ export class CarsComponent implements OnInit {
 
   getAllCars() {
     this.carsService.getAllCars().subscribe(res => {
-      console.info("res", res.body);
+      console.info("allCars", res.body);
       this.cars = res.body;
     })
   }
 
-  showSaveCarModal(modal) {
-    this.carForm = this.fb.group({
-      brand: [],
-      model: [],
-      gearbox: [''],
-      year: [],
-      pricePerDay:[],
-      airCondition: [],
-      doors: [],
-      seats: [],
-      smallBag: [],
-      largeBag: []
-    });
-    this.modalReference = this.modalService.open(modal, { centered: true, size: 'lg' });
+  showSaveCarModal(saveOrUpdate, car, modal) {
+    this.saveOrUpdateCar = saveOrUpdate;
+    if(!saveOrUpdate) {
+      this.carForm = this.fb.group({
+        brand: [],
+        model: [],
+        gearbox: [''],
+        year: [],
+        pricePerDay: [],
+        airCondition: [],
+        doors: [],
+        seats: [],
+        smallBag: [],
+        largeBag: []
+      });
+    } else {
+      this.carId = car.id;
+      this.carForm = this.fb.group({
+        brand: [car.brand],
+        model: [car.model],
+        gearbox: [car.gearbox],
+        year: [car.year],
+        pricePerDay: [car.pricePerDay],
+        airCondition: [car.airCondition],
+        doors: [car.doors],
+        seats: [car.seats],
+        smallBag: [car.smallBag],
+        largeBag: [car.largeBag]
+      });
+    }
+    this.modalReference = this.modalService.open(modal, {centered: true, size: 'lg'});
   }
 
   saveCar() {
     this.car = new Car();
+    if(this.saveOrUpdateCar) {
+      this.car.id = this.carId;
+    }
     this.car.brand = this.carForm.get('brand').value;
     this.car.model = this.carForm.get('model').value;
     this.car.gearbox = this.carForm.get('gearbox').value;
@@ -61,15 +83,29 @@ export class CarsComponent implements OnInit {
     this.car.smallBag = this.carForm.get('smallBag').value;
     this.car.largeBag = this.carForm.get('largeBag').value;
     console.log("this.car", this.car);
-    this.carsService.saveCar(this.car).subscribe(res => {
-      this.getAllCars();
-      this.modalReference.close();
-    });
+    if(!this.saveOrUpdateCar) {
+      this.carsService.saveCar(this.car).subscribe(res => {
+        this.getAllCars();
+        this.modalReference.close();
+      });
+    } else {
+      this.carsService.updateCar(this.car).subscribe(res => {
+        this.getAllCars();
+        this.modalReference.close();
+      });
+    }
+
   }
 
-  deleteCar(carId: number) {
-    this.carsService.deleteCar(carId).subscribe(res => {
+  showDeleteCarModal(carId, modal) {
+    this.carId = carId;
+    this.modalReference = this.modalService.open(modal, {centered: true});
+  }
+
+  deleteCar() {
+    this.carsService.deleteCar(this.carId).subscribe(res => {
       this.getAllCars();
+      this.modalReference.close();
     })
   }
 

@@ -6,7 +6,7 @@
   </div>
   <div class="row mt-3">
     <div class="col">
-      <button type="button" class="btn btn-primary" (click)="showSaveCarModal(saveCarModal)">Add Car</button>
+      <button type="button" class="btn btn-primary" (click)="showSaveCarModal(false, null, saveCarModal)">Add Car</button>
     </div>
   </div>
   <div class="row mt-3">
@@ -32,7 +32,8 @@
           <td class="align-middle">{{car.year}}</td>
           <td class="align-middle">{{car.pricePerDay}}</td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="deleteCar(car.id)">Delete</button>
+            <button type="button" class="btn btn-primary" (click)="showSaveCarModal(true, car, saveCarModal)">Edit</button>
+            <button type="button" class="btn btn-danger ml-2" (click)="showDeleteCarModal(car.id, deleteCarModal)">Delete</button>
           </td>
         </tr>
         </tbody>
@@ -43,7 +44,8 @@
 
 <ng-template #saveCarModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Add a new Car</h4>
+    <h4 *ngIf="!saveOrUpdateCar" class="modal-title">Add a new Car</h4>
+    <h4 *ngIf="saveOrUpdateCar" class="modal-title">Edit Car</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -133,3 +135,21 @@
     <button type="button" class="btn btn-primary" (click)="saveCar()">Save</button>
   </div>
 </ng-template>
+
+<ng-template #deleteCarModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm deletion</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <p>Are you sure you want to delete this car?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="deleteCar()">Delete</button>
+  </div>
+</ng-template>
+
+
