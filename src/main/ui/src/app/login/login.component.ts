@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       console.log("loggedUser", res);
       this.router.navigate(['/navbar']);
     });
-    this.router.navigate(['/navbar']);
+    //this.router.navigate(['/navbar']);
   }
 
   showSignUpModal(modal) {
