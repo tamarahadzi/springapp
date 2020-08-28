@@ -20,7 +20,7 @@
     <li [ngbNavItem]="4" *ngIf="loggedUser.role.name=='USER'">
       <a ngbNavLink>My reservations</a>
       <ng-template ngbNavContent>
-        <h3>My reservations</h3>
+        <app-my-reservations></app-my-reservations>
       </ng-template>
     </li>
     <li class="ml-auto mr-5">

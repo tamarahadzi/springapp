@@ -44,6 +44,7 @@
               <th>Air condition</th>
               <th>Year</th>
               <th>Price per day</th>
+              <th>Total price</th>
               <th></th>
             </tr>
             </thead>
@@ -55,6 +56,7 @@
               <td class="align-middle">{{car.airCondition}}</td>
               <td class="align-middle">{{car.year}}</td>
               <td class="align-middle">{{car.pricePerDay}}</td>
+              <td class="align-middle">{{car.totalPrice}}</td>
               <td>
                 <button type="button" class="btn btn-primary" (click)="showReserveCarModal(car, reserveCarModal)">Reserve</button>
               </td>
@@ -117,36 +119,38 @@
     </div>
     <div class="row">
       <div class="col">
-        <p><strong>Total price:</strong></p>
+        <p><strong>Total price: {{carToReserve.totalPrice}}</strong></p>
       </div>
     </div>
     <hr/>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label for="pickUpPlaceModal">Pick up place</label>
-          <select class="form-control" id="pickUpPlaceModal">
-            <option value="" disabled>Choose pick up place</option>
-            <option value="airport">Airport</option>
-            <option value="busStation">Bus station</option>
-            <option value="trainStation">Train station</option>
-            <option value="cityCenter">City center</option>
-          </select>
+    <form [formGroup]="reservationForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="pickUpPlaceModal">Pick up place</label>
+            <select class="form-control" id="pickUpPlaceModal" formControlName="pickUpPlace">
+              <option value="" disabled>Choose pick up place</option>
+              <option value="airport">Airport</option>
+              <option value="busStation">Bus station</option>
+              <option value="trainStation">Train station</option>
+              <option value="cityCenter">City center</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="dropOffPlaceModal">Drop off place</label>
+            <select class="form-control" id="dropOffPlaceModal" formControlName="dropOffPlace">
+              <option value="" disabled>Choose drop off place</option>
+              <option value="airport">Airport</option>
+              <option value="busStation">Bus station</option>
+              <option value="trainStation">Train station</option>
+              <option value="cityCenter">City center</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="col">
-        <div class="form-group">
-          <label for="dropOffPlaceModal">Drop off place</label>
-          <select class="form-control" id="dropOffPlaceModal">
-            <option value="" disabled>Choose drop off place</option>
-            <option value="airport">Airport</option>
-            <option value="busStation">Bus station</option>
-            <option value="trainStation">Train station</option>
-            <option value="cityCenter">City center</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

@@ -2,6 +2,8 @@ import {Component, OnInit, SimpleChanges} from '@angular/core';
 import {NgbDate, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Car} from "../../shared/models/car.model";
 import {CarsService} from "../cars/cars.service";
+import {Reservation} from "../../shared/models/reservation.model";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-reservation',
@@ -17,8 +19,12 @@ export class ReservationComponent implements OnInit {
   areCars: boolean = false;
   modalReference: NgbModalRef;
   carToReserve: Car;
+  reservationForm: FormGroup;
+  reservation: Reservation;
+  dateDiff: number;
 
-  constructor(private modalService: NgbModal,
+  constructor(private fb: FormBuilder,
+              private modalService: NgbModal,
               private carsService: CarsService) { }
 
   ngOnInit(): void {
@@ -30,6 +36,10 @@ export class ReservationComponent implements OnInit {
     } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
       this.toDate = date;
       console.log("dates", this.fromDate, this.toDate);
+      this.dateDiff = (new Date(this.toDate.year+'-'+this.toDate.month+'-'+this.toDate.day).getTime()
+        -new Date(this.fromDate.year+'-'+this.fromDate.month+'-'+this.fromDate.day).getTime())
+        /(24*60*60*1000) + 1;
+      console.log("dateDiff", this.dateDiff);
       /*this.carsService.getAvailableCars(this.fromDate, this.toDate).subscribe(res => {
         this.cars = res.body;
         if(this.cars.length > 0) {
@@ -38,6 +48,9 @@ export class ReservationComponent implements OnInit {
       });*/
       this.carsService.getAllCars().subscribe(res => {
         this.cars = res.body;
+        this.cars.forEach(car => {
+          car.totalPrice = car.pricePerDay * this.dateDiff;
+        });
         if(this.cars.length > 0) {
           this.areCars = true;
         }
@@ -68,6 +81,10 @@ export class ReservationComponent implements OnInit {
 
   showReserveCarModal(car, modal) {
     this.carToReserve = car;
+    this.reservationForm = this.fb.group({
+      pickUpPlace: [''],
+      dropOffPlace: ['']
+    });
     this.modalService.open(modal, {centered: true, size: 'lg'});
   }
 
