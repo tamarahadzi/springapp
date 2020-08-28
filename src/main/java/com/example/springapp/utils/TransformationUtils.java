@@ -2,8 +2,12 @@ package com.example.springapp.utils;
 
 import com.example.springapp.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
 
 @Service
 public class TransformationUtils {
@@ -19,5 +23,11 @@ public class TransformationUtils {
     public Car transformCarDTOtoCar(CarDTO carDTO) {
         Car car = new Car(carDTO.getId(), carDTO.getAirCondition(), carDTO.getDoors(), carDTO.getGearbox(), carDTO.getSeats(), carDTO.getLargeBag(), carDTO.getSmallBag(), carDTO.getYear(), carDTO.getBrand(), carDTO.getModel(), carDTO.getPricePerDay());
         return car;
+    }
+
+    public Reservation transformReservationDTOToReservation(ReservationDTO reservationDTO, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        Reservation reservation = new Reservation(user.getId(), reservationDTO.getCarId(),reservationDTO.getStartDate(), reservationDTO.getEndDate(), reservationDTO.getStartPlace(), reservationDTO.getEndPlace(), reservationDTO.getPrice());
+        return reservation;
     }
 }
