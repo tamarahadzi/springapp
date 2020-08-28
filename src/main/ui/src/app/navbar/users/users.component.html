@@ -4,34 +4,38 @@
       <h3>Users</h3>
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col">
-      <button type="button" class="btn btn-primary" (click)="showSaveUserModal(false, null,saveUserModal)">Add User</button>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col">
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of users; index as i">
-          <td class="align-middle">{{user.firstName}} {{user.lastName}}</td>
-          <td class="align-middle">{{user.email}}</td>
-          <td class="align-middle">{{user.phone}}</td>
-          <td>
-            <button type="button" class="btn btn-primary" (click)="showSaveUserModal(true, user, saveUserModal)">Edit</button>
-            <button type="button" class="btn btn-danger ml-2" (click)="showDeleteUserModal(user.id, deleteUserModal)">Delete</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+  <div class="card shadow p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <div class="row mt-3">
+        <div class="col">
+          <button type="button" class="btn btn-primary" (click)="showSaveUserModal(false, null,saveUserModal)">Add User</button>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users; index as i">
+              <td class="align-middle">{{user.firstName}} {{user.lastName}}</td>
+              <td class="align-middle">{{user.email}}</td>
+              <td class="align-middle">{{user.phone}}</td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="showSaveUserModal(true, user, saveUserModal)">Edit</button>
+                <button type="button" class="btn btn-danger ml-2" (click)="showDeleteUserModal(user.id, deleteUserModal)">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
