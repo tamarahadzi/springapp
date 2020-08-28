@@ -10,15 +10,15 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<HttpResponse<User>> {
+  login(email: string, password: string): Observable<HttpResponse<any>> {
     const formdata: FormData = new FormData();
     formdata.append('email', email);
     formdata.append('password', password);
-    return this.http.post<User>(this.baseUrl + '/login', formdata, {observe: 'response'});
+    return this.http.post<any>(this.baseUrl + '/login', formdata, {observe: 'response'});
   }
 
   signUp(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(this.baseUrl + '/signUp', user, {observe: 'response'});
+    return this.http.post<User>(this.baseUrl + '/signup', user, {observe: 'response'});
   }
 
 }

@@ -189,5 +189,18 @@ public class UserRestController {
 
     }
 
+    @PostMapping("/signup")
+    public ResponseEntity<Boolean> signup(@RequestBody UserDTO userDTO) {
+        try {
+            if (userService.createUser(userDTO)) {
+                return ResponseEntity.ok().body(true);
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
 

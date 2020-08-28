@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {LoginService} from "./login.service";
 import {User} from "../shared/models/user.model";
 import {Router} from "@angular/router";
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   signUpForm: FormGroup;
+  modalReference: NgbModalRef;
   user: User;
   role: Role;
 
@@ -33,7 +34,22 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe( res => {
-      console.log("loggedUser", res);
+      console.log("loggedUser", res.body);
+      let loggedUser = new User();
+      loggedUser.firstName = res.body.firstName;
+      loggedUser.lastName = res.body.lastName;
+      loggedUser.email = res.body.username;
+      loggedUser.phone = res.body.phone;
+      let role = new Role();
+      if(res.body.authorities[0].authority == 'ROLE_ADMIN') {
+        role.id = 1;
+        role.name = "ADMIN";
+      } else {
+        role.id = 2;
+        role.name = "USER";
+      }
+      loggedUser.role = role;
+      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
       this.router.navigate(['/navbar']);
     });
     //this.router.navigate(['/navbar']);
@@ -47,7 +63,7 @@ export class LoginComponent implements OnInit {
       password: [],
       phoneNumber: []
     });
-    this.modalService.open(modal, { centered: true });
+    this.modalReference = this.modalService.open(modal, { centered: true });
   }
 
   signUp() {
@@ -62,7 +78,9 @@ export class LoginComponent implements OnInit {
     this.role.name = "USER";
     this.user.role = this.role;
     console.log("user", this.user);
-    this.loginService.signUp(this.user).subscribe();
+    this.loginService.signUp(this.user).subscribe(res => {
+      this.modalReference.close();
+    });
   }
 
 }

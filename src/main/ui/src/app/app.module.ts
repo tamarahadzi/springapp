@@ -13,6 +13,7 @@ import { CarsComponent } from './navbar/cars/cars.component';
 import { UsersComponent } from './navbar/users/users.component';
 import {UsersService} from "./navbar/users/users.service";
 import {CarsService} from "./navbar/cars/cars.service";
+import { ReservationComponent } from './navbar/reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {CarsService} from "./navbar/cars/cars.service";
     LoginComponent,
     NavbarComponent,
     CarsComponent,
-    UsersComponent
+    UsersComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

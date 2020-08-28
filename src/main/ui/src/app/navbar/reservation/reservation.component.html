@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Reservation</h3>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+        <label for="calendar">Choose pick up and drop off date</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" id="calendar">
+      </ngb-datepicker>
+
+      <ng-template #t let-date let-focused="focused">
+          <span class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null;">
+            {{ date.day }}
+          </span>
+      </ng-template>
+    </div>
+  </div>
+</div>
