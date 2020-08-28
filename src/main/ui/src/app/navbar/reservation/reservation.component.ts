@@ -16,6 +16,7 @@ export class ReservationComponent implements OnInit {
   cars: Car[];
   areCars: boolean = false;
   modalReference: NgbModalRef;
+  carToReserve: Car;
 
   constructor(private modalService: NgbModal,
               private carsService: CarsService) { }
@@ -66,7 +67,8 @@ export class ReservationComponent implements OnInit {
   }
 
   showReserveCarModal(car, modal) {
-    this.modalService.open(modal, {centered: true});
+    this.carToReserve = car;
+    this.modalService.open(modal, {centered: true, size: 'lg'});
   }
 
   reserveCar() {
