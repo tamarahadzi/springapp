@@ -58,16 +58,7 @@ export class ReservationComponent implements OnInit {
       this.fromDateString = this.fromDate.year+'-'+this.fromDate.month+'-'+this.fromDate.day;
       this.toDateString = this.toDate.year+'-'+this.toDate.month+'-'+this.toDate.day;
       console.log("datesString", this.fromDateString, this.toDateString);
-      /*this.carsService.getAvailableCars(this.fromDateString, this.toDateString).subscribe(res => {
-        this.cars = res.body;
-        this.cars.forEach(car => {
-          car.totalPrice = car.pricePerDay * this.dateDiff;
-        });
-        if(this.cars.length > 0) {
-          this.areCars = true;
-        }
-      });*/
-      this.carsService.getAllCars().subscribe(res => {
+      this.carsService.getAvailableCars(this.fromDateString, this.toDateString).subscribe(res => {
         this.cars = res.body;
         this.cars.forEach(car => {
           car.totalPrice = car.pricePerDay * this.dateDiff;
@@ -76,6 +67,15 @@ export class ReservationComponent implements OnInit {
           this.areCars = true;
         }
       });
+      /*this.carsService.getAllCars().subscribe(res => {
+        this.cars = res.body;
+        this.cars.forEach(car => {
+          car.totalPrice = car.pricePerDay * this.dateDiff;
+        });
+        if(this.cars.length > 0) {
+          this.areCars = true;
+        }
+      });*/
     } else {
       this.toDate = null;
       this.fromDate = date;
