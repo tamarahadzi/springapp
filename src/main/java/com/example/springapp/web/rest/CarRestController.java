@@ -12,6 +12,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 
@@ -76,6 +77,17 @@ public class CarRestController {
     public ResponseEntity<List<CarDTO>> getAllCars() {
         try {
             return ResponseEntity.ok().body(carService.getAllCars());
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/getAvailableCars")
+    public ResponseEntity<List<CarDTO>> getAvailableCars(@RequestParam("startDate") Date startDate,
+                                                         @RequestParam("endDate") Date endDate) {
+        try {
+            return ResponseEntity.ok().body(carService.getAvailableCars(startDate, endDate));
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

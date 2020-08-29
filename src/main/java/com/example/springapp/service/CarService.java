@@ -9,6 +9,7 @@ import com.example.springapp.utils.TransformationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -65,6 +66,17 @@ public class CarService {
             return new ArrayList<>();
         }
     }
+
+    public List<CarDTO> getAvailableCars(Date startDate, Date endDate) {
+        try {
+            List<Car> unusedCars = carRepository.findUnusedCars();
+            unusedCars.addAll(carRepository.findAvailableCars(startDate, endDate));
+            return unusedCars.stream().map(car -> transformationUtils.transformCarToCarDTO(car)).collect(Collectors.toList());
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
 
     public boolean deleteCarById(Long id) {
         try {
