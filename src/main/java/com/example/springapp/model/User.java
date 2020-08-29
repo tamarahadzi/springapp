@@ -121,4 +121,5 @@ public class User {
         this.createdDate = user.createdDate;
         this.phone = user.phone;
     }
+
 }

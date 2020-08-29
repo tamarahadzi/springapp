@@ -129,7 +129,7 @@ public class UserRestController {
     }
 */
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id,
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id,
                                         Authentication authentication) {
         try {
             if (authentication.isAuthenticated()) {
@@ -142,7 +142,7 @@ public class UserRestController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         try {
             return ResponseEntity.ok().body(userService.getAllUsers());
 

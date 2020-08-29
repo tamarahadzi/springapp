@@ -113,4 +113,5 @@ public class CarDTO {
     public void setPricePerDay(Float pricePerDay) {
         this.pricePerDay = pricePerDay;
     }
+
 }

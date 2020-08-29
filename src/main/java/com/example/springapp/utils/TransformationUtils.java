@@ -16,18 +16,76 @@ public class TransformationUtils {
     PasswordEncoder passwordEncoder;
 
     public User transformUserDTOtoUser(UserDTO userDTO) {
-        User user = new User(userDTO.getEmail(), passwordEncoder.encode(userDTO.getPassword()), userDTO.getFirstName(), userDTO.getLastName(),  userDTO.getPhone(), userDTO.getCreatedDate(), userDTO.getRole());
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(user.getPassword());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhone(userDTO.getPhone());
+        user.setCreatedDate(userDTO.getCreatedDate());
+        user.setRole(userDTO.getRole());
         return user;
     }
 
+    public UserDTO transformUserToUserDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setCreatedDate(user.getCreatedDate());
+        userDTO.setRole(user.getRole());
+        return userDTO;
+    }
+
     public Car transformCarDTOtoCar(CarDTO carDTO) {
-        Car car = new Car(carDTO.getId(), carDTO.getAirCondition(), carDTO.getDoors(), carDTO.getGearbox(), carDTO.getSeats(), carDTO.getLargeBag(), carDTO.getSmallBag(), carDTO.getYear(), carDTO.getBrand(), carDTO.getModel(), carDTO.getPricePerDay());
+        Car car = new Car();
+        car.setId(carDTO.getId());
+        car.setAirCondition(carDTO.getAirCondition());
+        car.setDoors(carDTO.getDoors());
+        car.setGearbox(carDTO.getGearbox());
+        car.setSeats(carDTO.getSeats());
+        car.setLargeBag(carDTO.getLargeBag());
+        car.setSmallBag(carDTO.getSmallBag());
+        car.setYear(carDTO.getYear());
+        car.setBrand(carDTO.getBrand());
+        car.setModel(carDTO.getModel());
+        car.setPricePerDay(carDTO.getPricePerDay());
+
         return car;
+    }
+
+    public CarDTO transformCarToCarDTO(Car car) {
+        CarDTO carDTO = new CarDTO();
+        carDTO.setId(car.getId());
+        carDTO.setAirCondition(car.getAirCondition());
+        carDTO.setDoors(car.getDoors());
+        carDTO.setGearbox(car.getGearbox());
+        carDTO.setSeats(car.getSeats());
+        carDTO.setLargeBag(car.getLargeBag());
+        carDTO.setSmallBag(car.getSmallBag());
+        carDTO.setYear(car.getYear());
+        carDTO.setBrand(car.getBrand());
+        carDTO.setModel(car.getModel());
+        carDTO.setPricePerDay(car.getPricePerDay());
+
+        return carDTO;
     }
 
     public Reservation transformReservationDTOToReservation(ReservationDTO reservationDTO, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        Reservation reservation = new Reservation(user.getId(), reservationDTO.getCarId(),reservationDTO.getStartDate(), reservationDTO.getEndDate(), reservationDTO.getStartPlace(), reservationDTO.getEndPlace(), reservationDTO.getPrice());
+        Reservation reservation = new Reservation();
+        reservation.setId(reservationDTO.getId());
+        reservation.setUserId(user.getId());
+        reservation.setCarId(reservationDTO.getCarId());
+        reservation.setStartDate(reservationDTO.getStartDate());
+        reservation.setEndDate(reservationDTO.getEndDate());
+        reservation.setStartPlace(reservationDTO.getStartPlace());
+        reservation.setEndPlace(reservationDTO.getEndPlace());
+        reservation.setPrice(reservationDTO.getPrice());
         return reservation;
     }
 }

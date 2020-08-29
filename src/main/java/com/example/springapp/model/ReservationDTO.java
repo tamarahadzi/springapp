@@ -74,4 +74,13 @@ public class ReservationDTO {
     public void setPrice(Float price) {
         this.price = price;
     }
+
+    public ReservationDTO(Long carId, Date startDate, Date endDate, String startPlace, String endPlace, Float price) {
+        this.carId = carId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startPlace = startPlace;
+        this.endPlace = endPlace;
+        this.price = price;
+    }
 }

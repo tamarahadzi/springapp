@@ -132,8 +132,7 @@ public class Car {
 
     public Car() {}
 
-    public Car(Long id, Boolean airCondition, Integer doors, String gearbox, Integer seats, Integer largeBag, Integer smallBag, Integer year, String brand, String model, Float pricePerDay) {
-        this.id = id;
+    public Car(Boolean airCondition, Integer doors, String gearbox, Integer seats, Integer largeBag, Integer smallBag, Integer year, String brand, String model, Float pricePerDay) {
         this.airCondition = airCondition;
         this.doors = doors;
         this.gearbox = gearbox;
@@ -145,4 +144,5 @@ public class Car {
         this.model = model;
         this.pricePerDay = pricePerDay;
     }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -51,11 +52,11 @@ public class UserService {
         }
     }
 
-    public User getUserById(Long id) {
+    public UserDTO getUserById(Long id) {
         try {
             Optional<User> user = userRepository.findById(id);
             if (user.isPresent()) {
-                return user.get();
+                return transformationUtils.transformUserToUserDTO(user.get());
             }
             return null;
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class UserService {
         }
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream().map(user -> transformationUtils.transformUserToUserDTO(user)).collect(Collectors.toList());
     }
 }

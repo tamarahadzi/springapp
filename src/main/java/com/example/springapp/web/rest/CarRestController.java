@@ -60,7 +60,7 @@ public class CarRestController {
     }
 
     @GetMapping("/car/{id}")
-    public ResponseEntity<Car> getCar(@PathVariable("id") Long id,
+    public ResponseEntity<CarDTO> getCar(@PathVariable("id") Long id,
                                       Authentication authentication) {
         try {
             if (authentication.isAuthenticated()) {
@@ -73,7 +73,7 @@ public class CarRestController {
     }
 
     @GetMapping("/car")
-    public ResponseEntity<List<Car>> getAllCars() {
+    public ResponseEntity<List<CarDTO>> getAllCars() {
         try {
             return ResponseEntity.ok().body(carService.getAllCars());
 

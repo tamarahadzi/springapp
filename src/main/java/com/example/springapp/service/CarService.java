@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -45,11 +46,11 @@ public class CarService {
         }
     }
 
-    public Car getCarById(Long id) {
+    public CarDTO getCarById(Long id) {
         try {
             Optional<Car> car = carRepository.findById(id);
             if (car.isPresent()) {
-                return car.get();
+                return transformationUtils.transformCarToCarDTO(car.get());
             }
             return null;
         } catch (Exception e) {
@@ -57,9 +58,9 @@ public class CarService {
         }
     }
 
-    public List<Car> getAllCars() {
+    public List<CarDTO> getAllCars() {
         try {
-            return carRepository.findAll();
+            return carRepository.findAll().stream().map(car -> transformationUtils.transformCarToCarDTO(car)).collect(Collectors.toList());
         } catch (Exception e) {
             return new ArrayList<>();
         }
