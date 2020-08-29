@@ -26,6 +26,8 @@ public class CarDTO {
 
     private Float pricePerDay;
 
+    private Car car;
+
     public Long getId() {
         return id;
     }
@@ -114,4 +116,11 @@ public class CarDTO {
         this.pricePerDay = pricePerDay;
     }
 
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
 }
