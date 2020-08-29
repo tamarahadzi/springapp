@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   modalReference: NgbModalRef;
   user: User;
   role: Role;
+  showLoginAlert: boolean = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -52,6 +53,9 @@ export class LoginComponent implements OnInit {
       loggedUser.role = role;
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
       this.router.navigate(['/navbar']);
+    }, err => {
+      this.showLoginAlert = true;
+      setTimeout(() => this.showLoginAlert = false, 5000);
     });
     //this.router.navigate(['/navbar']);
   }

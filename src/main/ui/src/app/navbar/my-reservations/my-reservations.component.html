@@ -29,7 +29,7 @@
               <td class="align-middle">{{reservation.endPlace}}</td>
               <td class="align-middle">{{reservation.carDTO.brand}}</td>
               <td class="align-middle">{{reservation.carDTO.model}}</td>
-              <td class="align-middle">{{reservation.price}}</td>
+              <td class="align-middle">{{reservation.price}} RSD</td>
               <td>
                 <button type="button" class="btn btn-primary" (click)="showReservationDetailsModal(reservation, reservationDetailsModal)">Show details</button>
                 <button type="button" class="btn btn-danger ml-2" (click)="showDeleteReservationModal(reservation.id, deleteReservationModal)">Cancel reservation</button>
@@ -89,7 +89,7 @@
         <p><strong>Year: </strong> {{reservation.carDTO.year}}</p>
       </div>
       <div class="col">
-        <p><strong>Price per day: </strong> {{reservation.carDTO.pricePerDay}}</p>
+        <p><strong>Price per day: </strong> {{reservation.carDTO.pricePerDay}} RSD</p>
       </div>
     </div>
     <div class="row">
@@ -110,7 +110,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <p><strong>Total price: {{reservation.price}}</strong></p>
+        <p><strong>Total price: {{reservation.price}} RSD</strong></p>
       </div>
     </div>
   </div>

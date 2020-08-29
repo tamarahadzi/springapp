@@ -55,8 +55,8 @@
               <td class="align-middle">{{car.gearbox}}</td>
               <td class="align-middle">{{car.airCondition}}</td>
               <td class="align-middle">{{car.year}}</td>
-              <td class="align-middle">{{car.pricePerDay}}</td>
-              <td class="align-middle">{{car.totalPrice}}</td>
+              <td class="align-middle">{{car.pricePerDay}} RSD</td>
+              <td class="align-middle">{{car.totalPrice}} RSD</td>
               <td>
                 <button type="button" class="btn btn-primary" (click)="showReserveCarModal(car, reserveCarModal)">Reserve</button>
               </td>
@@ -98,7 +98,7 @@
         <p><strong>Year: </strong> {{carToReserve.year}}</p>
       </div>
       <div class="col">
-        <p><strong>Price per day: </strong> {{carToReserve.pricePerDay}}</p>
+        <p><strong>Price per day: </strong> {{carToReserve.pricePerDay}} RSD</p>
       </div>
     </div>
     <div class="row">
@@ -119,7 +119,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <p><strong>Total price: {{carToReserve.totalPrice}}</strong></p>
+        <p><strong>Total price: {{carToReserve.totalPrice}} RSD</strong></p>
       </div>
     </div>
     <hr/>
