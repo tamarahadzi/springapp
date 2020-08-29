@@ -15,6 +15,7 @@ import {UsersService} from "./navbar/users/users.service";
 import {CarsService} from "./navbar/cars/cars.service";
 import { ReservationComponent } from './navbar/reservation/reservation.component';
 import { MyReservationsComponent } from './navbar/my-reservations/my-reservations.component';
+import {ReservationService} from "./navbar/reservation/reservation.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MyReservationsComponent } from './navbar/my-reservations/my-reservation
   providers: [
     LoginService,
     UsersService,
-    CarsService
+    CarsService,
+    ReservationService
   ],
   bootstrap: [AppComponent]
 })

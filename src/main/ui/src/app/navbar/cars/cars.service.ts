@@ -26,4 +26,11 @@ export class CarsService {
     return this.http.get<Car[]>(this.baseUrl + '/car', {observe: 'response'});
   }
 
+  getAvailableCars(startDate: string, endDate: string): Observable<HttpResponse<Car[]>> {
+    const formdata: FormData = new FormData();
+    formdata.append('startDate', startDate);
+    formdata.append('endDate', endDate);
+    return this.http.post<Car[]>(this.baseUrl + '/getAvailableCars',formdata, {observe: 'response'});
+  }
+
 }

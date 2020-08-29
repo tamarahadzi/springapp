@@ -4,6 +4,7 @@ import {Car} from "../../shared/models/car.model";
 import {CarsService} from "../cars/cars.service";
 import {Reservation} from "../../shared/models/reservation.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {ReservationService} from "./reservation.service";
 
 @Component({
   selector: 'app-reservation',
@@ -22,10 +23,13 @@ export class ReservationComponent implements OnInit {
   reservationForm: FormGroup;
   reservation: Reservation;
   dateDiff: number;
+  fromDateString: string;
+  toDateString: string;
 
   constructor(private fb: FormBuilder,
               private modalService: NgbModal,
-              private carsService: CarsService) { }
+              private carsService: CarsService,
+              private reservationService: ReservationService) { }
 
   ngOnInit(): void {
   }
@@ -40,8 +44,14 @@ export class ReservationComponent implements OnInit {
         -new Date(this.fromDate.year+'-'+this.fromDate.month+'-'+this.fromDate.day).getTime())
         /(24*60*60*1000) + 1;
       console.log("dateDiff", this.dateDiff);
-      /*this.carsService.getAvailableCars(this.fromDate, this.toDate).subscribe(res => {
+      this.fromDateString = this.fromDate.day+'-'+this.fromDate.month+'-'+this.fromDate.year;
+      this.toDateString = this.toDate.day+'-'+this.toDate.month+'-'+this.toDate.year;
+      console.log("datesString", this.fromDateString, this.toDateString);
+      /*this.carsService.getAvailableCars(this.fromDateString, this.toDateString).subscribe(res => {
         this.cars = res.body;
+        this.cars.forEach(car => {
+          car.totalPrice = car.pricePerDay * this.dateDiff;
+        });
         if(this.cars.length > 0) {
           this.areCars = true;
         }
@@ -85,11 +95,22 @@ export class ReservationComponent implements OnInit {
       pickUpPlace: [''],
       dropOffPlace: ['']
     });
-    this.modalService.open(modal, {centered: true, size: 'lg'});
+    this.modalReference = this.modalService.open(modal, {centered: true, size: 'lg'});
   }
 
   reserveCar() {
-
+    this.reservation = new Reservation();
+    this.reservation.carId = this.carToReserve.id;
+    this.reservation.userId = JSON.parse(localStorage.getItem("loggedUser")).id;
+    this.reservation.startDate = this.fromDateString;
+    this.reservation.endDate = this.toDateString;
+    this.reservation.startPlace = this.reservationForm.get('pickUpPlace').value;
+    this.reservation.endPlace = this.reservationForm.get('dropOffPlace').value;
+    this.reservation.car = null;
+    console.log("this.reservation", this.reservation, JSON.parse(localStorage.getItem("loggedUser")));
+    /*this.reservationService.saveReservation(this.reservation).subscribe(res => {
+      this.modalReference.close();
+    });*/
   }
 
 }
