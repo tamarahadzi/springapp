@@ -114,6 +114,7 @@ public class User {
     }
 
     public User(User user) {
+        this.id = user.id;
         this.email = user.email;
         this.password = user.password;
         this.firstName = user.firstName;
