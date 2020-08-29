@@ -1,6 +1,7 @@
 package com.example.springapp.web.rest;
 
 import com.example.springapp.model.ReservationDTO;
+import com.example.springapp.model.User;
 import com.example.springapp.security.AuthoritiesConstants;
 import com.example.springapp.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,19 @@ public class ReservationRestController {
         try {
             return ResponseEntity.ok().body(reservationService.getAllReservations());
 
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/myReservations")
+    public ResponseEntity<List<ReservationDTO>> getMyReservations(Authentication authentication) {
+        try {
+            if (authentication.isAuthenticated()) {
+                User user = (User) authentication.getPrincipal();
+                return ResponseEntity.ok().body(reservationService.getAllReservations());
+            }
+            return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

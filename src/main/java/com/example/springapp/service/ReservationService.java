@@ -66,6 +66,14 @@ public class ReservationService {
         }
     }
 
+    public List<ReservationDTO> getMyReservations(Long userId) {
+        try {
+            return reservationRepository.findByUserId(userId).stream().map(reservation -> transformationUtils.transformReservationToReservationDTO(reservation)).collect(Collectors.toList());
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
     public boolean deleteReservationById(Long id) {
         try {
             reservationRepository.deleteById(id);

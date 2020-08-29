@@ -21,6 +21,8 @@ public class ReservationDTO {
 
     private Float price;
 
+    private CarDTO carDTO;
+
     public Long getId() {
         return id;
     }
@@ -83,6 +85,14 @@ public class ReservationDTO {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public CarDTO getCarDTO() {
+        return carDTO;
+    }
+
+    public void setCarDTO(CarDTO carDTO) {
+        this.carDTO = carDTO;
     }
 
     public ReservationDTO() {}

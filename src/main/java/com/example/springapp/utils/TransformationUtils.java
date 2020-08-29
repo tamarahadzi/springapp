@@ -1,6 +1,7 @@
 package com.example.springapp.utils;
 
 import com.example.springapp.model.*;
+import com.example.springapp.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,12 +9,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Service
 public class TransformationUtils {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CarRepository carRepository;
 
     public User transformUserDTOtoUser(UserDTO userDTO) {
         User user = new User();
@@ -98,6 +103,10 @@ public class TransformationUtils {
         reservationDTO.setStartPlace(reservation.getStartPlace());
         reservationDTO.setEndPlace(reservation.getEndPlace());
         reservationDTO.setPrice(reservation.getPrice());
+        Optional<Car> car = carRepository.findById(reservation.getCarId());
+        if (car.isPresent()) {
+            reservationDTO.setCarDTO(transformCarToCarDTO(car.get()));
+        }
         return reservationDTO;
     }
 }
