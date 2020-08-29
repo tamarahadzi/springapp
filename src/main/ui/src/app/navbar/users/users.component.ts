@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../shared/models/user.model";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Role} from "../../shared/models/role.model";
@@ -40,11 +40,11 @@ export class UsersComponent implements OnInit {
     this.saveOrUpdateUser = saveOrUpdate;
     if(!saveOrUpdate) {
       this.userForm = this.fb.group({
-        firstName: [],
-        lastName: [],
-        email: [],
-        password: [],
-        phoneNumber: []
+        firstName: [null, [Validators.required]],
+        lastName: [null, [Validators.required]],
+        email: [null, [Validators.required, Validators.email]],
+        password: [null, [Validators.required]],
+        phoneNumber: [null, [Validators.required]]
       });
     } else {
       this.userId = user.id;

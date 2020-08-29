@@ -128,25 +128,37 @@
         <div class="col">
           <div class="form-group">
             <label for="pickUpPlaceModal">Pick up place</label>
-            <select class="form-control" id="pickUpPlaceModal" formControlName="pickUpPlace">
+            <select [ngClass]="{'form-control': true, 'is-invalid': reservationForm.controls.pickUpPlace.errors && reservationForm.controls.pickUpPlace.touched}"
+                    id="pickUpPlaceModal" formControlName="pickUpPlace">
               <option value="" disabled>Choose pick up place</option>
               <option value="Airport">Airport</option>
               <option value="Bus station">Bus station</option>
               <option value="Train station">Train station</option>
               <option value="City center">City center</option>
             </select>
+            <div *ngIf="reservationForm.controls.pickUpPlace.errors && reservationForm.controls.pickUpPlace.touched" class="invalid-feedback">
+              <div *ngIf="reservationForm.controls.pickUpPlace.errors.required">
+                Pick up place is required.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="dropOffPlaceModal">Drop off place</label>
-            <select class="form-control" id="dropOffPlaceModal" formControlName="dropOffPlace">
+            <select [ngClass]="{'form-control': true, 'is-invalid': reservationForm.controls.dropOffPlace.errors && reservationForm.controls.dropOffPlace.touched}"
+                    id="dropOffPlaceModal" formControlName="dropOffPlace">
               <option value="" disabled>Choose drop off place</option>
               <option value="Airport">Airport</option>
               <option value="Bus station">Bus station</option>
               <option value="Train station">Train station</option>
               <option value="City center">City center</option>
             </select>
+            <div *ngIf="reservationForm.controls.dropOffPlace.errors && reservationForm.controls.dropOffPlace.touched" class="invalid-feedback">
+              <div *ngIf="reservationForm.controls.dropOffPlace.errors.required">
+                Drop off place is required.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -154,6 +166,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" (click)="reserveCar()">Reserve</button>
+    <button type="button" class="btn btn-primary" (click)="reserveCar()" [disabled]="reservationForm.invalid">Reserve</button>
   </div>
 </ng-template>
