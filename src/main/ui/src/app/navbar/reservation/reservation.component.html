@@ -13,7 +13,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" id="calendar">
+          <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" [minDate]="todayDate" outsideDays="hidden" id="calendar">
           </ngb-datepicker>
 
           <ng-template #t let-date let-focused="focused">
@@ -130,10 +130,10 @@
             <label for="pickUpPlaceModal">Pick up place</label>
             <select class="form-control" id="pickUpPlaceModal" formControlName="pickUpPlace">
               <option value="" disabled>Choose pick up place</option>
-              <option value="airport">Airport</option>
-              <option value="busStation">Bus station</option>
-              <option value="trainStation">Train station</option>
-              <option value="cityCenter">City center</option>
+              <option value="Airport">Airport</option>
+              <option value="Bus station">Bus station</option>
+              <option value="Train station">Train station</option>
+              <option value="City center">City center</option>
             </select>
           </div>
         </div>
@@ -142,10 +142,10 @@
             <label for="dropOffPlaceModal">Drop off place</label>
             <select class="form-control" id="dropOffPlaceModal" formControlName="dropOffPlace">
               <option value="" disabled>Choose drop off place</option>
-              <option value="airport">Airport</option>
-              <option value="busStation">Bus station</option>
-              <option value="trainStation">Train station</option>
-              <option value="cityCenter">City center</option>
+              <option value="Airport">Airport</option>
+              <option value="Bus station">Bus station</option>
+              <option value="Train station">Train station</option>
+              <option value="City center">City center</option>
             </select>
           </div>
         </div>

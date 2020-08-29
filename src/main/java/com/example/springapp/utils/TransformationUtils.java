@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @Service
@@ -85,8 +87,8 @@ public class TransformationUtils {
         reservation.setId(reservationDTO.getId());
         reservation.setUserId(reservationDTO.getUserId());
         reservation.setCarId(reservationDTO.getCarId());
-        reservation.setStartDate(reservationDTO.getStartDate());
-        reservation.setEndDate(reservationDTO.getEndDate());
+        reservation.setStartDate(Date.valueOf(reservationDTO.getStartDate()));
+        reservation.setEndDate(Date.valueOf(reservationDTO.getEndDate()));
         reservation.setStartPlace(reservationDTO.getStartPlace());
         reservation.setEndPlace(reservationDTO.getEndPlace());
         reservation.setPrice(reservationDTO.getPrice());
@@ -98,8 +100,8 @@ public class TransformationUtils {
         reservationDTO.setId(reservation.getId());
         reservationDTO.setUserId(reservation.getUserId());
         reservationDTO.setCarId(reservation.getCarId());
-        reservationDTO.setStartDate(reservation.getStartDate());
-        reservationDTO.setEndDate(reservation.getEndDate());
+        reservationDTO.setStartDate(reservation.getStartDate().toString());
+        reservationDTO.setEndDate(reservation.getEndDate().toString());
         reservationDTO.setStartPlace(reservation.getStartPlace());
         reservationDTO.setEndPlace(reservation.getEndPlace());
         reservationDTO.setPrice(reservation.getPrice());

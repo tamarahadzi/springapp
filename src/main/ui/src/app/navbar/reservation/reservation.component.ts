@@ -1,10 +1,11 @@
-import {Component, OnInit, SimpleChanges} from '@angular/core';
-import {NgbDate, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {Component, EventEmitter, OnInit, Output, SimpleChanges} from '@angular/core';
+import {NgbDate, NgbDateStruct, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Car} from "../../shared/models/car.model";
 import {CarsService} from "../cars/cars.service";
 import {Reservation} from "../../shared/models/reservation.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ReservationService} from "./reservation.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-reservation',
@@ -16,6 +17,7 @@ export class ReservationComponent implements OnInit {
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
+  todayDate: NgbDateStruct;
   cars: Car[];
   areCars: boolean = false;
   modalReference: NgbModalRef;
@@ -26,12 +28,21 @@ export class ReservationComponent implements OnInit {
   fromDateString: string;
   toDateString: string;
 
+  @Output() activeTab: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(private fb: FormBuilder,
+              private router: Router,
               private modalService: NgbModal,
               private carsService: CarsService,
               private reservationService: ReservationService) { }
 
   ngOnInit(): void {
+    let currentDate = new Date();
+    this.todayDate = {
+      year: currentDate.getFullYear(),
+      month: currentDate.getMonth() + 1,
+      day: currentDate.getDate()
+    };
   }
 
   onDateSelection(date: NgbDate) {
@@ -44,8 +55,8 @@ export class ReservationComponent implements OnInit {
         -new Date(this.fromDate.year+'-'+this.fromDate.month+'-'+this.fromDate.day).getTime())
         /(24*60*60*1000) + 1;
       console.log("dateDiff", this.dateDiff);
-      this.fromDateString = this.fromDate.day+'-'+this.fromDate.month+'-'+this.fromDate.year;
-      this.toDateString = this.toDate.day+'-'+this.toDate.month+'-'+this.toDate.year;
+      this.fromDateString = this.fromDate.year+'-'+this.fromDate.month+'-'+this.fromDate.day;
+      this.toDateString = this.toDate.year+'-'+this.toDate.month+'-'+this.toDate.day;
       console.log("datesString", this.fromDateString, this.toDateString);
       /*this.carsService.getAvailableCars(this.fromDateString, this.toDateString).subscribe(res => {
         this.cars = res.body;
@@ -106,11 +117,13 @@ export class ReservationComponent implements OnInit {
     this.reservation.endDate = this.toDateString;
     this.reservation.startPlace = this.reservationForm.get('pickUpPlace').value;
     this.reservation.endPlace = this.reservationForm.get('dropOffPlace').value;
-    this.reservation.car = null;
+    this.reservation.price = this.carToReserve.totalPrice;
+    this.reservation.carDTO = null;
     console.log("this.reservation", this.reservation, JSON.parse(localStorage.getItem("loggedUser")));
-    /*this.reservationService.saveReservation(this.reservation).subscribe(res => {
+    this.reservationService.saveReservation(this.reservation).subscribe(res => {
       this.modalReference.close();
-    });*/
+      this.activeTab.emit(4);
+    });
   }
 
 }

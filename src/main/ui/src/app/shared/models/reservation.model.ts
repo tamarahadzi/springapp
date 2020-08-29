@@ -9,5 +9,5 @@ export class Reservation {
   public startPlace: string;
   public endPlace: string;
   public price: number;
-  public car: Car;
+  public carDTO: Car;
 }

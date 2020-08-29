@@ -85,7 +85,7 @@ public class ReservationRestController {
         try {
             if (authentication.isAuthenticated()) {
                 User user = (User) authentication.getPrincipal();
-                return ResponseEntity.ok().body(reservationService.getAllReservations());
+                return ResponseEntity.ok().body(reservationService.getMyReservations(user.getId()));
             }
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {

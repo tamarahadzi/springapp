@@ -13,9 +13,8 @@
             <column name="car_id" type="bigint"/>
             <column name="start_date" type="date"/>
             <column name="end_date" type="date"/>
-            <column name="start_place" type="integer"/>
+            <column name="start_place" type="varchar(255)"/>
             <column name="end_place" type="varchar(255)"/>
-            <column name="small_bag" type="varchar(255)"/>
             <column name="price" type="real"/>
         </createTable>
     </changeSet>

@@ -11,9 +11,9 @@ public class ReservationDTO {
 
     private Long userId;
 
-    private Date startDate;
+    private String startDate;
 
-    private Date endDate;
+    private String endDate;
 
     private String startPlace;
 
@@ -47,19 +47,19 @@ public class ReservationDTO {
         this.carId = carId;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -97,7 +97,7 @@ public class ReservationDTO {
 
     public ReservationDTO() {}
 
-    public ReservationDTO(Long userId, Long carId, Date startDate, Date endDate, String startPlace, String endPlace, Float price) {
+    public ReservationDTO(Long userId, Long carId, String startDate, String endDate, String startPlace, String endPlace, Float price, CarDTO car) {
         this.userId = userId;
         this.carId = carId;
         this.startDate = startDate;
@@ -105,5 +105,6 @@ public class ReservationDTO {
         this.startPlace = startPlace;
         this.endPlace = endPlace;
         this.price = price;
+        this.carDTO = car;
     }
 }

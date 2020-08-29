@@ -14,7 +14,7 @@
     <li [ngbNavItem]="3" *ngIf="loggedUser.role.name=='USER'" class="ml-5">
       <a ngbNavLink>Reserve form</a>
       <ng-template ngbNavContent>
-        <app-reservation></app-reservation>
+        <app-reservation (activeTab)="changeActiveTab($event)"></app-reservation>
       </ng-template>
     </li>
     <li [ngbNavItem]="4" *ngIf="loggedUser.role.name=='USER'">

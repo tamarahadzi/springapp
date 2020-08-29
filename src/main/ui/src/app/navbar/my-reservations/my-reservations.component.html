@@ -6,6 +6,131 @@
   </div>
   <div class="card shadow p-3 mb-5 bg-white rounded">
     <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Pick up date</th>
+              <th>Drop off date</th>
+              <th>Pick up date</th>
+              <th>Drop off place</th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Total price</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let reservation of myReservations; index as i">
+              <td class="align-middle">{{reservation.startDate}}</td>
+              <td class="align-middle">{{reservation.endDate}}</td>
+              <td class="align-middle">{{reservation.startPlace}}</td>
+              <td class="align-middle">{{reservation.endPlace}}</td>
+              <td class="align-middle">{{reservation.carDTO.brand}}</td>
+              <td class="align-middle">{{reservation.carDTO.model}}</td>
+              <td class="align-middle">{{reservation.price}}</td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="showReservationDetailsModal(reservation, reservationDetailsModal)">Show details</button>
+                <button type="button" class="btn btn-danger ml-2" (click)="showDeleteReservationModal(reservation.id, deleteReservationModal)">Cancel reservation</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #reservationDetailsModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Reservation details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <p><strong>Pick up date: </strong> {{reservation.startDate}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Drop off date: </strong> {{reservation.endDate}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Pick up place: </strong> {{reservation.startPlace}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Drop off place: </strong> {{reservation.endPlace}}</p>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col">
+        <p><strong>Brand: </strong> {{reservation.carDTO.brand}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Model: </strong> {{reservation.carDTO.model}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Gearbox: </strong> {{reservation.carDTO.gearbox}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Air condition: </strong> {{reservation.carDTO.airCondition}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Year: </strong> {{reservation.carDTO.year}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Price per day: </strong> {{reservation.carDTO.pricePerDay}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>No. of doors: </strong> {{reservation.carDTO.doors}}</p>
+      </div>
+      <div class="col">
+        <p><strong>No. of doors: </strong> {{reservation.carDTO.seats}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>No. of small bags: </strong> {{reservation.carDTO.smallBag}}</p>
+      </div>
+      <div class="col">
+        <p><strong>No. of large bags: </strong> {{reservation.carDTO.largeBag}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Total price: {{reservation.price}}</strong></p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteReservationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm reservation cancelation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to cancel this reservation?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="deleteReservation()">Cancel reservation</button>
+  </div>
+</ng-template>

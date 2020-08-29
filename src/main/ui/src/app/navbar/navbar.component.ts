@@ -27,4 +27,9 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem("loggedUser");
     this.router.navigate(['/login']);
   }
+
+  changeActiveTab(event) {
+    console.log("activeNUmber", event);
+    this.active = event;
+  }
 }
