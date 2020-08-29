@@ -75,11 +75,10 @@ public class TransformationUtils {
         return carDTO;
     }
 
-    public Reservation transformReservationDTOToReservation(ReservationDTO reservationDTO, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+    public Reservation transformReservationDTOToReservation(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
         reservation.setId(reservationDTO.getId());
-        reservation.setUserId(user.getId());
+        reservation.setUserId(reservationDTO.getUserId());
         reservation.setCarId(reservationDTO.getCarId());
         reservation.setStartDate(reservationDTO.getStartDate());
         reservation.setEndDate(reservationDTO.getEndDate());
@@ -87,5 +86,18 @@ public class TransformationUtils {
         reservation.setEndPlace(reservationDTO.getEndPlace());
         reservation.setPrice(reservationDTO.getPrice());
         return reservation;
+    }
+
+    public ReservationDTO transformReservationToReservationDTO(Reservation reservation) {
+        ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setId(reservation.getId());
+        reservationDTO.setUserId(reservation.getUserId());
+        reservationDTO.setCarId(reservation.getCarId());
+        reservationDTO.setStartDate(reservation.getStartDate());
+        reservationDTO.setEndDate(reservation.getEndDate());
+        reservationDTO.setStartPlace(reservation.getStartPlace());
+        reservationDTO.setEndPlace(reservation.getEndPlace());
+        reservationDTO.setPrice(reservation.getPrice());
+        return reservationDTO;
     }
 }
