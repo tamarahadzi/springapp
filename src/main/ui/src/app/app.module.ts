@@ -14,6 +14,7 @@ import { UsersComponent } from './navbar/users/users.component';
 import {UsersService} from "./navbar/users/users.service";
 import {CarsService} from "./navbar/cars/cars.service";
 import { ReservationComponent } from './navbar/reservation/reservation.component';
+import { MyReservationsComponent } from './navbar/my-reservations/my-reservations.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReservationComponent } from './navbar/reservation/reservation.component
     NavbarComponent,
     CarsComponent,
     UsersComponent,
-    ReservationComponent
+    ReservationComponent,
+    MyReservationsComponent
   ],
   imports: [
     BrowserModule,

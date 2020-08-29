@@ -4,17 +4,19 @@
       <h3>Reservation</h3>
     </div>
   </div>
-  <div class="row mt-2">
-    <div class="col">
-        <label for="calendar">Choose pick up and drop off date</label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" id="calendar">
-      </ngb-datepicker>
+  <div class="card shadow p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <label for="calendar">Choose pick up and drop off date</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" id="calendar">
+          </ngb-datepicker>
 
-      <ng-template #t let-date let-focused="focused">
+          <ng-template #t let-date let-focused="focused">
           <span class="custom-day"
                 [class.focused]="focused"
                 [class.range]="isRange(date)"
@@ -23,7 +25,135 @@
                 (mouseleave)="hoveredDate = null;">
             {{ date.day }}
           </span>
-      </ng-template>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row mt-4" *ngIf="areCars">
+        <div class="col">
+          <h4>Available cars</h4>
+        </div>
+      </div>
+      <div class="row" *ngIf="areCars">
+        <div class="col">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Gearbox</th>
+              <th>Air condition</th>
+              <th>Year</th>
+              <th>Price per day</th>
+              <th>Total price</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let car of cars; index as i">
+              <td class="align-middle">{{car.brand}}</td>
+              <td class="align-middle">{{car.model}}</td>
+              <td class="align-middle">{{car.gearbox}}</td>
+              <td class="align-middle">{{car.airCondition}}</td>
+              <td class="align-middle">{{car.year}}</td>
+              <td class="align-middle">{{car.pricePerDay}}</td>
+              <td class="align-middle">{{car.totalPrice}}</td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="showReserveCarModal(car, reserveCarModal)">Reserve</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #reserveCarModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Car reservation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <p><strong>Brand: </strong> {{carToReserve.brand}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Model: </strong> {{carToReserve.model}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Gearbox: </strong> {{carToReserve.gearbox}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Air condition: </strong> {{carToReserve.airCondition}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Year: </strong> {{carToReserve.year}}</p>
+      </div>
+      <div class="col">
+        <p><strong>Price per day: </strong> {{carToReserve.pricePerDay}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>No. of doors: </strong> {{carToReserve.doors}}</p>
+      </div>
+      <div class="col">
+        <p><strong>No. of doors: </strong> {{carToReserve.seats}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>No. of small bags: </strong> {{carToReserve.smallBag}}</p>
+      </div>
+      <div class="col">
+        <p><strong>No. of large bags: </strong> {{carToReserve.largeBag}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p><strong>Total price: {{carToReserve.totalPrice}}</strong></p>
+      </div>
+    </div>
+    <hr/>
+    <form [formGroup]="reservationForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="pickUpPlaceModal">Pick up place</label>
+            <select class="form-control" id="pickUpPlaceModal" formControlName="pickUpPlace">
+              <option value="" disabled>Choose pick up place</option>
+              <option value="airport">Airport</option>
+              <option value="busStation">Bus station</option>
+              <option value="trainStation">Train station</option>
+              <option value="cityCenter">City center</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="dropOffPlaceModal">Drop off place</label>
+            <select class="form-control" id="dropOffPlaceModal" formControlName="dropOffPlace">
+              <option value="" disabled>Choose drop off place</option>
+              <option value="airport">Airport</option>
+              <option value="busStation">Bus station</option>
+              <option value="trainStation">Train station</option>
+              <option value="cityCenter">City center</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="reserveCar()">Reserve</button>
+  </div>
+</ng-template>

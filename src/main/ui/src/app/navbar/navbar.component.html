@@ -1,23 +1,34 @@
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="navbar navbar-expand-lg bg-light nav-pills">
-  <li [ngbNavItem]="1" *ngIf="loggedUser.role.name=='ADMIN'">
-    <a ngbNavLink>Users</a>
-    <ng-template ngbNavContent>
-      <app-users></app-users>
-    </ng-template>
-  </li>
-  <li [ngbNavItem]="2" *ngIf="loggedUser.role.name=='ADMIN'">
-    <a ngbNavLink>Cars</a>
-    <ng-template ngbNavContent>
-      <app-cars></app-cars>
-    </ng-template>
-  </li>
-  <li [ngbNavItem]="3" *ngIf="loggedUser.role.name=='USER'">
-    <a ngbNavLink>Reservation</a>
-    <ng-template ngbNavContent>
-      <app-reservation></app-reservation>
-    </ng-template>
-  </li>
-  <li class="ml-auto mr-1"><a>{{loggedUser.firstName}} {{loggedUser.lastName}}</a><button class="btn btn-primary ml-3" (click)="logout()">Log out</button></li>
+    <li [ngbNavItem]="1" *ngIf="loggedUser.role.name=='ADMIN'" class="ml-5">
+      <a ngbNavLink>Users</a>
+      <ng-template ngbNavContent>
+        <app-users></app-users>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2" *ngIf="loggedUser.role.name=='ADMIN'">
+      <a ngbNavLink>Cars</a>
+      <ng-template ngbNavContent>
+        <app-cars></app-cars>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3" *ngIf="loggedUser.role.name=='USER'" class="ml-5">
+      <a ngbNavLink>Reserve form</a>
+      <ng-template ngbNavContent>
+        <app-reservation></app-reservation>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="4" *ngIf="loggedUser.role.name=='USER'">
+      <a ngbNavLink>My reservations</a>
+      <ng-template ngbNavContent>
+        <app-my-reservations></app-my-reservations>
+      </ng-template>
+    </li>
+    <li class="ml-auto mr-5">
+      <a>{{loggedUser.firstName}} {{loggedUser.lastName}}</a>
+      <button class="btn btn-primary ml-3" (click)="logout()">Log out</button>
+    </li>
+
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
