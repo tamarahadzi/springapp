@@ -27,7 +27,7 @@ public class UserService {
 
     public boolean createUser(UserDTO userDTO) {
         try {
-            userRepository.save(transformationUtils.transformUserDTOtoUser(userDTO));
+            userRepository.save(transformationUtils.transformUserDTOtoUser(userDTO, null));
             return true;
         } catch (Exception e) {
             return false;
@@ -38,11 +38,7 @@ public class UserService {
         try {
             Optional<User> optionalUser = userRepository.findById(userDTO.getId());
             if (optionalUser.isPresent()) {
-                String password;
-                if (userDTO.getPassword() != null) {
-                    password = optionalUser.get().getPassword();
-                }
-                userRepository.save(transformationUtils.transformUserDTOtoUser(userDTO));
+                userRepository.save(transformationUtils.transformUserDTOtoUser(userDTO, optionalUser.get().getPassword()));
                 return true;
             } else {
                 return false;

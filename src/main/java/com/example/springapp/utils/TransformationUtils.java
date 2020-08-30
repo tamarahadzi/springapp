@@ -5,6 +5,7 @@ import com.example.springapp.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,19 @@ public class TransformationUtils {
     @Autowired
     private CarRepository carRepository;
 
-    public User transformUserDTOtoUser(UserDTO userDTO) {
+
+
+
+    public User transformUserDTOtoUser(UserDTO userDTO, String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setId(userDTO.getId());
         user.setEmail(userDTO.getEmail());
+        if (password == null && !encoder.matches(userDTO.getPassword(), password)) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        } else {
+            user.setPassword(password);
+        }
         user.setPassword(user.getPassword());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());

@@ -11,13 +11,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@EnableWebSecurity
 @Configuration
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -58,7 +62,8 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception { auth.userDetailsService(customUserDetailsService)
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService)
             .passwordEncoder(getPasswordEncoder());
     }
 
@@ -68,25 +73,17 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().cacheControl().disable();
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
         http
-                .cors().and()
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/api/login")
-                .permitAll()
-                /*.anyRequest()
-                .authenticated()*/
-                /* .and()
-                 .httpBasic()
-                 .and()
-                 .csrf().ignoringAntMatchers("/login")
-                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                 .and()
-                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                 .and()
-                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)*/
-                .and()
-                .formLogin()
+            .cors().and()
+            .csrf()
+            .disable()
+            .authorizeRequests()
+            .antMatchers("/api/login")
+            .permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .httpBasic()
+            .and()
+            .formLogin()
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll()
@@ -99,8 +96,6 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler())
                 .permitAll();
-        //.and()
-        //.addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
 
 
 
