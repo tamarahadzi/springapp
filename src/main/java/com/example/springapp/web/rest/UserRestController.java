@@ -142,10 +142,13 @@ public class UserRestController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
         try {
-            return ResponseEntity.ok().body(userService.getAllUsers());
-
+            if (authentication.isAuthenticated()) {
+                User user = (User) authentication.getPrincipal();
+                return ResponseEntity.ok().body(userService.getAllUsers(user.getId()));
+            }
+            return ResponseEntity.badRequest().header("User is not authenticated").build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

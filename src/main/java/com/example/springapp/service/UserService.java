@@ -69,7 +69,7 @@ public class UserService {
         }
     }
 
-    public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().map(user -> transformationUtils.transformUserToUserDTO(user)).collect(Collectors.toList());
+    public List<UserDTO> getAllUsers(Long id) {
+        return userRepository.getAllExceptLoggedUser(id).stream().map(user -> transformationUtils.transformUserToUserDTO(user)).collect(Collectors.toList());
     }
 }

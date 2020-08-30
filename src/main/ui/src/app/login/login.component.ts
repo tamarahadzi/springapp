@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   user: User;
   role: Role;
   showLoginAlert: boolean = false;
+  showSignUpAlert: boolean = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -85,6 +86,8 @@ export class LoginComponent implements OnInit {
     console.log("user", this.user);
     this.loginService.signUp(this.user).subscribe(res => {
       this.modalReference.close();
+      this.showSignUpAlert = true;
+      setTimeout(() => this.showSignUpAlert = false, 5000);
     });
   }
 

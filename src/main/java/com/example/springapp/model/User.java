@@ -32,7 +32,7 @@ public class User {
     private Date createdDate;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 

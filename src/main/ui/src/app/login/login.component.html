@@ -1,6 +1,7 @@
 <div class="background">
   <form class="w-25 pt-5 pl-5" [formGroup]="loginForm">
     <ngb-alert *ngIf="showLoginAlert" type="danger">Invalid email or password!</ngb-alert>
+    <ngb-alert *ngIf="showSignUpAlert" type="success">You have been registered successfully!</ngb-alert>
     <div class="row">
       <div class="col">
         <div class="form-group">
