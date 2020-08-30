@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../shared/models/user.model";
 import {Car} from "../../shared/models/car.model";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
@@ -38,32 +38,36 @@ export class CarsComponent implements OnInit {
     this.saveOrUpdateCar = saveOrUpdate;
     if(!saveOrUpdate) {
       this.carForm = this.fb.group({
-        brand: [],
-        model: [],
-        gearbox: [''],
-        year: [],
-        pricePerDay: [],
-        airCondition: [],
-        doors: [],
-        seats: [],
-        smallBag: [],
-        largeBag: []
+        brand: [null, [Validators.required]],
+        model: [null, [Validators.required]],
+        gearbox: ['', [Validators.required]],
+        year: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        pricePerDay: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        airCondition: [null, [Validators.required]],
+        doors: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        seats: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        smallBag: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        largeBag: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]]
       });
+      console.log("carFormValidationn", this.carForm);
+      console.log("carFormValidationn", this.carForm.controls.brand.errors);
+      console.log("carFormValidationn", this.carForm.controls.brand.touched);
     } else {
       this.carId = car.id;
       this.carForm = this.fb.group({
-        brand: [car.brand],
-        model: [car.model],
-        gearbox: [car.gearbox],
-        year: [car.year],
-        pricePerDay: [car.pricePerDay],
-        airCondition: [car.airCondition],
-        doors: [car.doors],
-        seats: [car.seats],
-        smallBag: [car.smallBag],
-        largeBag: [car.largeBag]
+        brand: [car.brand, [Validators.required]],
+        model: [car.model, [Validators.required]],
+        gearbox: [car.gearbox, [Validators.required]],
+        year: [car.year, [Validators.required]],
+        pricePerDay: [car.pricePerDay, [Validators.required]],
+        airCondition: [car.airCondition, [Validators.required]],
+        doors: [car.doors, [Validators.required]],
+        seats: [car.seats, [Validators.required]],
+        smallBag: [car.smallBag, [Validators.required]],
+        largeBag: [car.largeBag, [Validators.required]]
       });
     }
+    console.log("carFormValidationn", this.carForm);
     this.modalReference = this.modalService.open(modal, {centered: true, size: 'lg'});
   }
 

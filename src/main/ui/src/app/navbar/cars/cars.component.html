@@ -60,13 +60,27 @@
         <div class="col">
           <div class="form-group">
             <label for="brandModal">Brand</label>
-            <input type="text" class="form-control" id="brandModal" placeholder="Brand" formControlName="brand">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.brand.errors && carForm.controls.brand.touched}"
+                   id="brandModal" placeholder="Brand" formControlName="brand">
+            <div *ngIf="carForm.controls.brand.errors && carForm.controls.brand.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.brand.errors.required">
+                Brand is required.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="modelModal">Model</label>
-            <input type="text" class="form-control" id="modelModal" placeholder="Model" formControlName="model">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.model.errors && carForm.controls.model.touched}"
+                   id="modelModal" placeholder="Model" formControlName="model">
+            <div *ngIf="carForm.controls.model.errors && carForm.controls.model.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.model.errors.required">
+                Model is required.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -74,19 +88,33 @@
         <div class="col">
           <div class="form-group">
             <label for="gearboxModal">Gearbox</label>
-            <select class="form-control" id="gearboxModal" formControlName="gearbox">
+            <select class="form-control"
+              [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.gearbox.errors && carForm.controls.gearbox.touched}"
+              id="gearboxModal" formControlName="gearbox">
               <option value="" disabled>Choose gearbox</option>
               <option value="automatic">automatic</option>
               <option value="manual">manual</option>
             </select>
+            <div *ngIf="carForm.controls.gearbox.errors && carForm.controls.gearbox.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.gearbox.errors.required">
+                Gearbox is required.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-check mt-4">
-            <input class="form-check-input" type="checkbox" value="" id="airConditionModal" formControlName="airCondition">
+            <input class="form-check-input" type="checkbox" value=""
+                   [ngClass]="{'is-invalid': carForm.controls.airCondition.errors && carForm.controls.airCondition.touched}"
+                   id="airConditionModal" formControlName="airCondition">
             <label class="form-check-label" for="airConditionModal">
               Air condition
             </label>
+            <div *ngIf="carForm.controls.airCondition.errors && carForm.controls.airCondition.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.airCondition.errors.required">
+                Air condition is required.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -94,13 +122,33 @@
         <div class="col">
           <div class="form-group">
             <label for="yearModal">Year</label>
-            <input type="text" class="form-control" id="yearModal" placeholder="Year" formControlName="year">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.year.errors && carForm.controls.year.touched}"
+                   id="yearModal" placeholder="Year" formControlName="year">
+            <div *ngIf="carForm.controls.year.errors && carForm.controls.year.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.year.errors.required">
+                Year is required.
+              </div>
+              <div *ngIf="carForm.controls.year.errors.pattern">
+                Year must be a number.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="pricePerDayModal">Price per day</label>
-            <input type="text" class="form-control" id="pricePerDayModal" placeholder="Price per day" formControlName="pricePerDay">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.pricePerDay.errors && carForm.controls.pricePerDay.touched}"
+                   id="pricePerDayModal" placeholder="Price per day" formControlName="pricePerDay">
+            <div *ngIf="carForm.controls.pricePerDay.errors && carForm.controls.pricePerDay.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.pricePerDay.errors.required">
+                Price per day is required.
+              </div>
+              <div *ngIf="carForm.controls.pricePerDay.errors.pattern">
+                Price per day must be a number.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -108,13 +156,33 @@
         <div class="col">
           <div class="form-group">
             <label for="doorsModal">Number of doors</label>
-            <input type="text" class="form-control" id="doorsModal" placeholder="Number of doors" formControlName="doors">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.doors.errors && carForm.controls.doors.touched}"
+                   id="doorsModal" placeholder="Number of doors" formControlName="doors">
+            <div *ngIf="carForm.controls.doors.errors && carForm.controls.doors.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.doors.errors.required">
+                Number of doors is required.
+              </div>
+              <div *ngIf="carForm.controls.doors.errors.pattern">
+                Number of doors must be a number.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="seatsModal">Number of seats</label>
-            <input type="text" class="form-control" id="seatsModal" placeholder="Number of seats" formControlName="seats">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.seats.errors && carForm.controls.seats.touched}"
+                   id="seatsModal" placeholder="Number of seats" formControlName="seats">
+            <div *ngIf="carForm.controls.seats.errors && carForm.controls.seats.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.seats.errors.required">
+                Number of seats is required.
+              </div>
+              <div *ngIf="carForm.controls.seats.errors.pattern">
+                Number of seats must be a number.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -122,13 +190,33 @@
         <div class="col">
           <div class="form-group">
             <label for="smallBagModal">Number of small bags</label>
-            <input type="text" class="form-control" id="smallBagModal" placeholder="Number of small bags" formControlName="smallBag">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.smallBag.errors && carForm.controls.smallBag.touched}"
+                   id="smallBagModal" placeholder="Number of small bags" formControlName="smallBag">
+            <div *ngIf="carForm.controls.smallBag.errors && carForm.controls.smallBag.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.smallBag.errors.required">
+                Number of small bags is required.
+              </div>
+              <div *ngIf="carForm.controls.smallBag.errors.pattern">
+                Number of small bags must be a number.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="largeBagModal">Number of large bags</label>
-            <input type="text" class="form-control" id="largeBagModal" placeholder="Number of large bags" formControlName="largeBag">
+            <input type="text"
+                   [ngClass]="{'form-control': true, 'is-invalid': carForm.controls.largeBag.errors && carForm.controls.largeBag.touched}"
+                   id="largeBagModal" placeholder="Number of large bags" formControlName="largeBag">
+            <div *ngIf="carForm.controls.largeBag.errors && carForm.controls.largeBag.touched" class="invalid-feedback">
+              <div *ngIf="carForm.controls.largeBag.errors.required">
+                Number of large bags is required.
+              </div>
+              <div *ngIf="carForm.controls.largeBag.errors.pattern">
+                Number of large bags must be a number.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,7 +224,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" (click)="saveCar()">Save</button>
+    <button type="button" class="btn btn-primary" (click)="saveCar()" [disabled]="carForm.invalid">Save</button>
   </div>
 </ng-template>
 

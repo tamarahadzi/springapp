@@ -3,7 +3,7 @@ import {NgbDate, NgbDateStruct, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bo
 import {Car} from "../../shared/models/car.model";
 import {CarsService} from "../cars/cars.service";
 import {Reservation} from "../../shared/models/reservation.model";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ReservationService} from "./reservation.service";
 import {Router} from "@angular/router";
 
@@ -103,8 +103,8 @@ export class ReservationComponent implements OnInit {
   showReserveCarModal(car, modal) {
     this.carToReserve = car;
     this.reservationForm = this.fb.group({
-      pickUpPlace: [''],
-      dropOffPlace: ['']
+      pickUpPlace: ['', [Validators.required]],
+      dropOffPlace: ['', [Validators.required]]
     });
     this.modalReference = this.modalService.open(modal, {centered: true, size: 'lg'});
   }
