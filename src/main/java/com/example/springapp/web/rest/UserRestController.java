@@ -87,6 +87,7 @@ public class UserRestController {
     }
 
     @PutMapping("/users")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> updateUser(@RequestBody UserDTO userDTO,
                                               Authentication authentication) {
         try {
@@ -129,6 +130,7 @@ public class UserRestController {
     }
 */
     @GetMapping("/users/{id}")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id,
                                         Authentication authentication) {
         try {
@@ -142,6 +144,7 @@ public class UserRestController {
     }
 
     @GetMapping("/users")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
         try {
             if (authentication.isAuthenticated()) {
@@ -156,6 +159,7 @@ public class UserRestController {
 
 
     @DeleteMapping("/users/{id}")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> deleteUser(@PathVariable("id") Long id,
                                               Authentication authentication) {
         try {

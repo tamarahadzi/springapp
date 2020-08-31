@@ -21,7 +21,7 @@ public class ReservationRestController {
     private ReservationService reservationService;
 
     @PostMapping("/reservations")
-    @Secured({AuthoritiesConstants.ADMIN})
+    @Secured({AuthoritiesConstants.USER})
     public ResponseEntity<Boolean> createReservation(@RequestBody ReservationDTO reservationDTO,
                                              Authentication authentication) {
         try {
@@ -40,6 +40,7 @@ public class ReservationRestController {
     }
 
     @PutMapping("/reservations")
+    @Secured({AuthoritiesConstants.USER})
     public ResponseEntity<Boolean> updateReservation(@RequestBody ReservationDTO reservationDTO,
                                              Authentication authentication) {
         try {
@@ -58,6 +59,7 @@ public class ReservationRestController {
     }
 
     @GetMapping("/reservations/{id}")
+    @Secured({AuthoritiesConstants.USER})
     public ResponseEntity<ReservationDTO> getReservation(@PathVariable("id") Long id,
                                          Authentication authentication) {
         try {
@@ -71,16 +73,20 @@ public class ReservationRestController {
     }
 
     @GetMapping("/reservations")
-    public ResponseEntity<List<ReservationDTO>> getAllReservations() {
+    @Secured({AuthoritiesConstants.USER})
+    public ResponseEntity<List<ReservationDTO>> getAllReservations(Authentication authentication) {
         try {
-            return ResponseEntity.ok().body(reservationService.getAllReservations());
-
+            if (authentication.isAuthenticated()) {
+                return ResponseEntity.ok().body(reservationService.getAllReservations());
+            }
+            return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping("/myReservations")
+    @Secured({AuthoritiesConstants.USER})
     public ResponseEntity<List<ReservationDTO>> getMyReservations(Authentication authentication) {
         try {
             if (authentication.isAuthenticated()) {
@@ -95,6 +101,7 @@ public class ReservationRestController {
 
 
     @DeleteMapping("/reservations/{id}")
+    @Secured({AuthoritiesConstants.USER})
     public ResponseEntity<Boolean> deleteReservations(@PathVariable("id") Long id,
                                              Authentication authentication) {
         try {

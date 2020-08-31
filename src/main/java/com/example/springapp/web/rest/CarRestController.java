@@ -43,6 +43,7 @@ public class CarRestController {
     }
 
     @PutMapping("/cars")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> updateCar(@RequestBody CarDTO carDTO,
                                               Authentication authentication) {
         try {
@@ -61,6 +62,7 @@ public class CarRestController {
     }
 
     @GetMapping("/cars/{id}")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<CarDTO> getCar(@PathVariable("id") Long id,
                                       Authentication authentication) {
         try {
@@ -74,10 +76,13 @@ public class CarRestController {
     }
 
     @GetMapping("/cars")
-    public ResponseEntity<List<CarDTO>> getAllCars() {
+    @Secured({AuthoritiesConstants.ADMIN})
+    public ResponseEntity<List<CarDTO>> getAllCars(Authentication authentication) {
         try {
-            return ResponseEntity.ok().body(carService.getAllCars());
-
+            if (authentication.isAuthenticated()) {
+                return ResponseEntity.ok().body(carService.getAllCars());
+            }
+            return ResponseEntity.badRequest().header("User is not authenticated").build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
