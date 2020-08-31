@@ -12,19 +12,19 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   saveUser(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(this.baseUrl + '/user', user, {observe: 'response'});
+    return this.http.post<User>(this.baseUrl + '/users', user, {observe: 'response'});
   }
 
   updateUser(user: User): Observable<HttpResponse<User>> {
-    return this.http.put<User>(this.baseUrl + '/user', user, {observe: 'response'});
+    return this.http.put<User>(this.baseUrl + '/users', user, {observe: 'response'});
   }
 
   deleteUser(userId: number): Observable<HttpResponse<User>> {
-    return this.http.delete<User>(this.baseUrl + '/user/' + userId, {observe: 'response'});
+    return this.http.delete<User>(this.baseUrl + '/users/' + userId, {observe: 'response'});
   }
 
   getAllUsers(): Observable<HttpResponse<User[]>> {
-    return this.http.get<User[]>(this.baseUrl + '/user', {observe: 'response'});
+    return this.http.get<User[]>(this.baseUrl + '/users', {observe: 'response'});
   }
 
 }

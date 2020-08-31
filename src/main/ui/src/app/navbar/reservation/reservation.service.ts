@@ -12,11 +12,11 @@ export class ReservationService {
   constructor(private http: HttpClient) { }
 
   saveReservation(reservation: Reservation): Observable<HttpResponse<Reservation>> {
-    return this.http.post<Reservation>(this.baseUrl + '/reservation', reservation, {observe: 'response'});
+    return this.http.post<Reservation>(this.baseUrl + '/reservations', reservation, {observe: 'response'});
   }
 
   deleteReservation(reservationId: number): Observable<HttpResponse<Reservation>> {
-    return this.http.delete<Reservation>(this.baseUrl + '/reservation/' + reservationId, {observe: 'response'});
+    return this.http.delete<Reservation>(this.baseUrl + '/reservations/' + reservationId, {observe: 'response'});
   }
 
   getMyReservations(): Observable<HttpResponse<Reservation[]>> {

@@ -67,7 +67,7 @@ public class UserRestController {
 
     }*/
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> createUser(@RequestBody UserDTO userDTO,
                                               Authentication authentication) {
@@ -86,7 +86,7 @@ public class UserRestController {
 
     }
 
-    @PutMapping("/user")
+    @PutMapping("/users")
     public ResponseEntity<Boolean> updateUser(@RequestBody UserDTO userDTO,
                                               Authentication authentication) {
         try {
@@ -128,7 +128,7 @@ public class UserRestController {
 
     }
 */
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id,
                                         Authentication authentication) {
         try {
@@ -141,7 +141,7 @@ public class UserRestController {
         }
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Authentication authentication) {
         try {
             if (authentication.isAuthenticated()) {
@@ -155,7 +155,7 @@ public class UserRestController {
     }
 
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable("id") Long id,
                                               Authentication authentication) {
         try {

@@ -20,7 +20,7 @@ public class ReservationRestController {
     @Autowired
     private ReservationService reservationService;
 
-    @PostMapping("/reservation")
+    @PostMapping("/reservations")
     @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> createReservation(@RequestBody ReservationDTO reservationDTO,
                                              Authentication authentication) {
@@ -39,7 +39,7 @@ public class ReservationRestController {
 
     }
 
-    @PutMapping("/reservation")
+    @PutMapping("/reservations")
     public ResponseEntity<Boolean> updateReservation(@RequestBody ReservationDTO reservationDTO,
                                              Authentication authentication) {
         try {
@@ -57,7 +57,7 @@ public class ReservationRestController {
 
     }
 
-    @GetMapping("/reservation/{id}")
+    @GetMapping("/reservations/{id}")
     public ResponseEntity<ReservationDTO> getReservation(@PathVariable("id") Long id,
                                          Authentication authentication) {
         try {
@@ -70,7 +70,7 @@ public class ReservationRestController {
         }
     }
 
-    @GetMapping("/reservation")
+    @GetMapping("/reservations")
     public ResponseEntity<List<ReservationDTO>> getAllReservations() {
         try {
             return ResponseEntity.ok().body(reservationService.getAllReservations());
@@ -94,7 +94,7 @@ public class ReservationRestController {
     }
 
 
-    @DeleteMapping("/reservation/{id}")
+    @DeleteMapping("/reservations/{id}")
     public ResponseEntity<Boolean> deleteReservations(@PathVariable("id") Long id,
                                              Authentication authentication) {
         try {

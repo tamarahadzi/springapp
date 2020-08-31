@@ -23,7 +23,7 @@ public class CarRestController {
     @Autowired
     private CarService carService;
 
-    @PostMapping("/car")
+    @PostMapping("/cars")
     @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> createCar(@RequestBody CarDTO carDTO,
                                               Authentication authentication) {
@@ -42,7 +42,7 @@ public class CarRestController {
 
     }
 
-    @PutMapping("/car")
+    @PutMapping("/cars")
     public ResponseEntity<Boolean> updateCar(@RequestBody CarDTO carDTO,
                                               Authentication authentication) {
         try {
@@ -60,7 +60,7 @@ public class CarRestController {
 
     }
 
-    @GetMapping("/car/{id}")
+    @GetMapping("/cars/{id}")
     public ResponseEntity<CarDTO> getCar(@PathVariable("id") Long id,
                                       Authentication authentication) {
         try {
@@ -73,7 +73,7 @@ public class CarRestController {
         }
     }
 
-    @GetMapping("/car")
+    @GetMapping("/cars")
     public ResponseEntity<List<CarDTO>> getAllCars() {
         try {
             return ResponseEntity.ok().body(carService.getAllCars());
@@ -83,19 +83,24 @@ public class CarRestController {
         }
     }
 
-    @PostMapping("/getAvailableCars")
-    public ResponseEntity<List<CarDTO>> getAvailableCars(@RequestParam("startDate") Date startDate,
-                                                         @RequestParam("endDate") Date endDate) {
+    @PostMapping("/availableCars")
+    @Secured({AuthoritiesConstants.USER})
+    public ResponseEntity<List<CarDTO>> availableCars(@RequestParam("startDate") Date startDate,
+                                                      @RequestParam("endDate") Date endDate,
+                                                      Authentication authentication) {
         try {
-            return ResponseEntity.ok().body(carService.getAvailableCars(startDate, endDate));
-
+            if (authentication.isAuthenticated()) {
+                return ResponseEntity.ok().body(carService.getAvailableCars(startDate, endDate));
+            }
+            return ResponseEntity.badRequest().header("User is not authenticated").build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
 
-    @DeleteMapping("/car/{id}")
+    @DeleteMapping("/cars/{id}")
+    @Secured({AuthoritiesConstants.ADMIN})
     public ResponseEntity<Boolean> deleteCar(@PathVariable("id") Long id,
                                               Authentication authentication) {
         try {
